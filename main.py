@@ -1,5 +1,9 @@
 import requests
 from bs4 import BeautifulSoup
+import sqlite3
+
+conn = sqlite3.connect('notices.db')
+cursor = conn.cursor()
 
 def purple(a):
     return "\33[35m"+a+"\33[0m"
@@ -28,6 +32,11 @@ for row in reversed(rows[0:9]):
     notice_date = row.find('span').text
     notice_name = anchor_tags[0].text.strip()
     notice_attachment_link = anchor_tags[1]['href']
-    
+    cursor.execute('''
+        INSERT INTO notices (date, title, link)
+        VALUES (?,?,?)
+    ''',(notice_date, notice_name, notice_attachment_link))
     #print(f'{notice_date} - {notice_name} : {notice_attachment_link}')
     print(purple(notice_date)+"-"+notice_name+"\n"+notice_attachment_link+"\n")
+conn.commit()
+conn.close()
