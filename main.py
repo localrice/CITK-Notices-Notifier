@@ -22,6 +22,7 @@ def insert_notice(data_tuple):
             INSERT INTO notices (date, title, link)
             VALUES (?,?,?)
         ''',data_tuple)
+    conn.commit()
 
 # checks if a notice already exists in the database
 def check_if_exists(data_tuple):
@@ -113,7 +114,6 @@ try:
     while True:
         time.sleep(1)
 finally:
-    conn.commit()
     conn.close()
 
 #print(scrape_data("https://cit.ac.in/pages-notices-all"))
