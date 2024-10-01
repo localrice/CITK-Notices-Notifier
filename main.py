@@ -8,6 +8,20 @@ cursor = conn.cursor()
 def purple(a):
     return "\33[35m"+a+"\33[0m"
 
+def insert_data(date, title, link):
+    cursor.execute('''
+            INSERT INTO notices (date, title, link)
+            VALUES (?,?,?)
+        ''',(date, title, link))
+
+# checks if a notice already exists in the database
+def check_if_exists(date, title, link):
+    cursor.execute('''
+            SELECT * FROM notices WHERE date = ? AND title = ? AND link = ?
+        ''', (date, title, link))
+    result = cursor.fetchone()
+    return result
+
 NOTICE_URL = "https://cit.ac.in/pages-notices-all"
 page = requests.get(NOTICE_URL)
 
@@ -32,11 +46,8 @@ for row in reversed(rows[0:9]):
     notice_date = row.find('span').text
     notice_name = anchor_tags[0].text.strip()
     notice_attachment_link = anchor_tags[1]['href']
-    cursor.execute('''
-        INSERT INTO notices (date, title, link)
-        VALUES (?,?,?)
-    ''',(notice_date, notice_name, notice_attachment_link))
     #print(f'{notice_date} - {notice_name} : {notice_attachment_link}')
     print(purple(notice_date)+"-"+notice_name+"\n"+notice_attachment_link+"\n")
+
 conn.commit()
 conn.close()
