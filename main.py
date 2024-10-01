@@ -10,6 +10,8 @@ cursor = conn.cursor()
 BOT_TOKEN = os.environ.get("BOT_TOKEN")
 bot = telebot.TeleBot(BOT_TOKEN)
 
+notice_url = "https://cit.ac.in/pages-notices-all"
+
 def purple(a):
     return "\33[35m"+a+"\33[0m"
 
@@ -72,6 +74,26 @@ def get_subscribers():
     cursor.execute('SELECT chat_id FROM subscribers')
     return [row[0] for row in cursor.fetchall()]
 
+def check_and_notify():
+    """
+        First scrapes data from the page and then checks if it already exists in the database,
+        if not inserts it and then prints the notice.
+    """
+    scraped_data = scrape_data(notice_url)
+    if not check_if_exists(scraped_data):
+        insert_data(scraped_data)
+        
+        message = f"New Notice!\nDate: {scraped_data[0]}\nTitle: {scraped_data[1]}\nLink: {scraped_data[2]}"
+        '''
+        subscribers = get_subscribers()
+        for chat_id in subscribers:
+            bot.send_message(chat_id, message)
+        '''
+        print(purple("New notice found and notified."))
+    else:
+        print(purple("No new notice found"))
+
+check_and_notify()
 #print(scrape_data("https://cit.ac.in/pages-notices-all"))
 
 conn.commit()
