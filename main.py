@@ -3,8 +3,10 @@ from bs4 import BeautifulSoup
 import sqlite3
 import os
 import telebot
+from threading import Thread
+import time
 
-conn = sqlite3.connect('notices.db')
+conn = sqlite3.connect('notices.db', check_same_thread=False) # Ensure multi-threading support
 cursor = conn.cursor()
 
 BOT_TOKEN = os.environ.get("BOT_TOKEN")
@@ -93,8 +95,25 @@ def check_and_notify():
     else:
         print(purple("No new notice found"))
 
-check_and_notify()
-#print(scrape_data("https://cit.ac.in/pages-notices-all"))
+# Command to subscribe users to the notificaitons
+@bot.message_handler(commands=['subscribe'])
+def subscribe(message):
+    chat_id = str(message.chat.id)
+    insert_subscriber(chat_id)
+    bot.reply_to(message,"You have subscribed to notifications!")
 
-conn.commit()
-conn.close()
+# Function to handle bot polling in a separate thread
+def start_polling():
+    print("Starting bot polling...")
+    bot.infinity_polling()
+try:
+    # Start the bot polling in a separate thread
+    polling_thread = Thread(target=start_polling)
+    polling_thread.start()
+    while True:
+        time.sleep(1)
+finally:
+    conn.commit()
+    conn.close()
+
+#print(scrape_data("https://cit.ac.in/pages-notices-all"))
