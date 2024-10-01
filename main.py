@@ -15,7 +15,7 @@ notice_url = "https://cit.ac.in/pages-notices-all"
 def purple(a):
     return "\33[35m"+a+"\33[0m"
 
-def insert_data(data_tuple):
+def insert_notice(data_tuple):
     cursor.execute('''
             INSERT INTO notices (date, title, link)
             VALUES (?,?,?)
@@ -81,7 +81,7 @@ def check_and_notify():
     """
     scraped_data = scrape_data(notice_url)
     if not check_if_exists(scraped_data):
-        insert_data(scraped_data)
+        insert_notice(scraped_data)
         
         message = f"New Notice!\nDate: {scraped_data[0]}\nTitle: {scraped_data[1]}\nLink: {scraped_data[2]}"
         '''
