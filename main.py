@@ -5,6 +5,7 @@ import os
 import telebot
 from threading import Thread
 import time
+import schedule
 
 conn = sqlite3.connect('notices.db', check_same_thread=False) # Ensure multi-threading support
 cursor = conn.cursor()
@@ -87,11 +88,10 @@ def check_and_notify():
         insert_notice(scraped_data)
         
         message = f"New Notice!\nDate: {scraped_data[0]}\nTitle: {scraped_data[1]}\nLink: {scraped_data[2]}"
-        '''
+        
         subscribers = get_subscribers()
         for chat_id in subscribers:
             bot.send_message(chat_id, message)
-        '''
         print(purple("New notice found and notified."))
     else:
         print(purple("No new notice found"))
@@ -103,15 +103,21 @@ def subscribe(message):
     insert_subscriber(chat_id)
     bot.reply_to(message,"You have subscribed to notifications!")
 
+# Schedule the check_and_notify function to run every 15 minutes
+schedule.every(1).minutes.do(check_and_notify)
+print("Bot started. Waiting for new notices...")
+
 # Function to handle bot polling in a separate thread
 def start_polling():
     print("Starting bot polling...")
     bot.infinity_polling()
+    
 try:
     # Start the bot polling in a separate thread
     polling_thread = Thread(target=start_polling)
     polling_thread.start()
     while True:
+        schedule.run_pending()
         time.sleep(1)
 finally:
     conn.close()
