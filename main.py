@@ -68,7 +68,7 @@ def insert_subscriber(chat_id):
         ''', (chat_id,)) # pls don't remove the comma after chat_id, without the comma, its just a grouped expression, not a tuple
     conn.commit()
     
-def get_subscriber():
+def get_subscribers():
     cursor.execute('SELECT chat_id FROM subscribers')
     return [row[0] for row in cursor.fetchall()]
 
