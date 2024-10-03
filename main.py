@@ -73,7 +73,13 @@ def insert_subscriber(chat_id):
         INSERT OR IGNORE INTO subscribers (chat_id) VALUES (?)
         ''', (chat_id,)) # pls don't remove the comma after chat_id, without the comma, its just a grouped expression, not a tuple
     conn.commit()
-    
+
+def remove_subscriber(chat_id):
+    cursor.execute('''
+        DELTE FROM subscribers  WHERE chat_id = ?
+    ''', (chat_id,))
+    conn.commit()
+
 def get_subscribers():
     cursor.execute('SELECT chat_id FROM subscribers')
     return [row[0] for row in cursor.fetchall()]
