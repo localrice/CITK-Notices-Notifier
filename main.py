@@ -76,7 +76,7 @@ def insert_subscriber(chat_id):
 
 def remove_subscriber(chat_id):
     cursor.execute('''
-        DELTE FROM subscribers  WHERE chat_id = ?
+        DELETE FROM subscribers  WHERE chat_id = ?
     ''', (chat_id,))
     conn.commit()
 
@@ -122,6 +122,7 @@ try:
     # Start the bot polling in a separate thread
     polling_thread = Thread(target=start_polling)
     polling_thread.start()
+    
     while True:
         schedule.run_pending()
         time.sleep(1)
