@@ -103,11 +103,18 @@ def check_and_notify():
         print(purple("No new notice found"))
 
 # Command to subscribe users to the notificaitons
-@bot.message_handler(commands=['subscribe'])
+@bot.message_handler(commands=['subscribe','start'])
 def subscribe(message):
     chat_id = str(message.chat.id)
     insert_subscriber(chat_id)
     bot.reply_to(message,"You have subscribed to notifications!")
+
+@bot.message_handler(commands=['unsubscribe'])
+def unsubscribe(message):
+    chat_id = str(message.chat.id)
+    remove_subscriber(chat_id)
+    bot.reply_to(message, "You have unsubcribed to notificaitons!")
+    
 
 # Schedule the check_and_notify function to run every 15 minutes
 schedule.every(1).minutes.do(check_and_notify)
