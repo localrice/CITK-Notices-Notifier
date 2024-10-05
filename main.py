@@ -102,8 +102,16 @@ def check_and_notify():
     else:
         print(purple("No new notice found"))
 
-# Command to subscribe users to the notificaitons
-@bot.message_handler(commands=['subscribe','start'])
+# --------------
+# BOT Commands
+# --------------
+@bot.message_handler(commands=['start'])
+def start(message):
+    start_text = open("start_text.txt", "r")
+    bot.reply_to(message, start_text.read(), parse_mode='Markdown')
+    start_text.close() 
+
+@bot.message_handler(commands=['subscribe'])
 def subscribe(message):
     chat_id = str(message.chat.id)
     insert_subscriber(chat_id)
