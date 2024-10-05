@@ -41,3 +41,10 @@ if [ -f "create_db.py" ]; then
 else
     echo -e "${RED}create_db.py not found!${RESET}"
 fi
+
+if [ -f "main.py" ]; then
+    python main.py
+    echo -e "${GREEN}main.py executed successfully.${RESET}"
+else
+    echo -e "${RED}main.py not found!${RESET}"
+fi
