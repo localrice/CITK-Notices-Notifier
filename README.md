@@ -8,7 +8,7 @@
 # Setup:
 1. Clone the repo
 ```sh
-git clone https://github.com/prashantrahul141/CGU-Notices-Notifier
+git clone https://github.com/localrice/CITK-Notices-Notifier
 ```
 
 2. Add the following env var to .env
