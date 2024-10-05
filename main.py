@@ -107,7 +107,7 @@ def check_and_notify():
 # --------------
 @bot.message_handler(commands=['start'])
 def start(message):
-    start_text = open("start_text.txt", "r")
+    start_text = open("./command_responses/start_text.txt", "r")
     bot.reply_to(message, start_text.read(), parse_mode='Markdown')
     start_text.close() 
 
@@ -125,7 +125,7 @@ def unsubscribe(message):
 
 @bot.message_handler(commands=['help'])
 def help(message):
-    help_text = open("help_text.txt", "r")
+    help_text = open("./command_responses/help_text.txt", "r")
     #help_text_fr = help_text.read()
     bot.reply_to(message, help_text.read())
     help_text.close()    
