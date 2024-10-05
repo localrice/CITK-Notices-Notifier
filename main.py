@@ -114,7 +114,13 @@ def unsubscribe(message):
     chat_id = str(message.chat.id)
     remove_subscriber(chat_id)
     bot.reply_to(message, "You have unsubcribed to notificaitons!")
-    
+
+@bot.message_handler(commands=['help'])
+def help(message):
+    help_text = open("help_text.txt", "r")
+    #help_text_fr = help_text.read()
+    bot.reply_to(message, help_text.read())
+    help_text.close()    
 
 # Schedule the check_and_notify function to run every 15 minutes
 schedule.every(1).minutes.do(check_and_notify)
