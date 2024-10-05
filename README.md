@@ -5,7 +5,7 @@
 
 <h3 align="center">Here's the bot: <a href="https://t.me/CITKNoticesNotifierBot">@CITKNoticesNotifierBot</a></h3>
 
-# Running this
+# Setup:
 1. Clone the repo
 ```sh
 git clone https://github.com/prashantrahul141/CGU-Notices-Notifier
