@@ -140,6 +140,13 @@ def help(message):
     bot.reply_to(message, help_text.read(), parse_mode='Markdown')
     help_text.close()    
 
+@bot.message_handler(commands=['info'])
+def info(message):
+    info_text = open("./command_responses/info.txt", "r")
+    bot.reply_to(message, info_text.read(), parse_mode='Markdown')
+    info_text.close()    
+
+
 # Schedule the check_and_notify function to run every 15 minutes
 schedule.every(1).minutes.do(check_and_notify)
 print("Bot started. Waiting for new notices...")
