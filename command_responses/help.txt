@@ -1,7 +1,4 @@
-Hello! My only purpose is to send you notifications whenever CITK posts any updates on their website's notice board. 
-Since it doesn't have a system where it can notify students on updates,
-it creates quite a lot of confusion among the students. I stand to solve that problem by notifying everyone who is
-subscribed to me within 10 minutes. You can subscribe too, just by sending a subscribe to me.
-And you can unsubscibe from me anytime you want!
-Here's the source code if you're interested : https://github.com/localrice/CITK-Notices-Notifier
-If you like the project consider giving it a star on github!
+I'm here to notify you whenever *CITK* posts updates on their notice board, solving the confusion of missing announcements.
+You'll get notified within *10 minutes* of any update!
+
+Subscribe by sending /subscribe and unsubscribe by /unsubscribe anytime. 

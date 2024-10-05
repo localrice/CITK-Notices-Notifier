@@ -1,0 +1,6 @@
+Hi !! I made this bot to notify us about the notices in the CITK notice board, as the current website doesn't have any notification system.
+
+I would love to get some feedback on the code and also if you would like this to get ported to other platforms, I would love to help you out
+
+Check out the source code: https://github.com/localrice/CITK-Notices-Notifier.
+If you like it, please give it a star!
