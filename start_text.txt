@@ -1,0 +1,5 @@
+*Greetings* 👋
+Would you like to subscribe to CITK notices notifications?
+Type /subscribe to subscribe to notifications
+
+For more information type /help
