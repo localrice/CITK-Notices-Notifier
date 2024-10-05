@@ -80,6 +80,13 @@ def remove_subscriber(chat_id):
     ''', (chat_id,))
     conn.commit()
 
+def check_if_subscriber_exists(chat_id):
+    cursor.execute('''
+                SELECT * FROM subscribers WHERE chat_id = ?
+    ''', (chat_id,))
+    result = cursor.fetchone()
+    return result
+
 def get_subscribers():
     cursor.execute('SELECT chat_id FROM subscribers')
     return [row[0] for row in cursor.fetchall()]
@@ -114,8 +121,11 @@ def start(message):
 @bot.message_handler(commands=['subscribe'])
 def subscribe(message):
     chat_id = str(message.chat.id)
-    insert_subscriber(chat_id)
-    bot.reply_to(message,"You have subscribed to notifications!")
+    if not check_if_subscriber_exists(chat_id):
+        insert_subscriber(chat_id)
+        bot.reply_to(message,"You have subscribed to notifications!")
+    else:
+        bot.reply_to(message, "You are already subscribed.")
 
 @bot.message_handler(commands=['unsubscribe'])
 def unsubscribe(message):
