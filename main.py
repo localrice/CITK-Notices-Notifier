@@ -159,5 +159,3 @@ try:
         time.sleep(1)
 finally:
     conn.close()
-
-#print(scrape_data("https://cit.ac.in/pages-notices-all"))
