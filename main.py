@@ -157,8 +157,8 @@ def info(message):
     info_text.close()    
 
 
-# Schedule the check_and_notify function to run every 15 minutes
-schedule.every(1).minutes.do(check_and_notify)
+# Schedule the check_and_notify function to run every 10 minutes
+schedule.every(10).minutes.do(check_and_notify)
 print("Bot started. Waiting for new notices...")
 
 # Function to handle bot polling in a separate thread
