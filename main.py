@@ -15,6 +15,8 @@ bot = telebot.TeleBot(BOT_TOKEN)
 
 notice_url = "https://cit.ac.in/pages-notices-all"
 
+initial_run = True
+
 def purple(a):
     return "\33[35m"+a+"\33[0m"
 
@@ -96,19 +98,27 @@ def check_and_notify():
         First scrapes data from the page and then checks if it already exists in the database,
         if not inserts it and then prints the notice.
     """
+    global initial_run
+    
     scraped_data = scrape_data(notice_url)
     if not check_if_exists(scraped_data):
         insert_notice(scraped_data)
-        
-        message = f"New Notice!\nDate: {scraped_data[0]}\nTitle: {scraped_data[1]}\nLink: {scraped_data[2]}"
-        
-        subscribers = get_subscribers()
-        for chat_id in subscribers:
-            bot.send_message(chat_id, message)
-        print(purple("New notice found and notified."))
+
+        # Only send notifications if it's not the initial run
+        if not initial_run:
+            message = f"New Notice!\nDate: {scraped_data[0]}\nTitle: {scraped_data[1]}\nLink: {scraped_data[2]}"
+            subscribers = get_subscribers()
+            
+            for chat_id in subscribers:
+                bot.send_message(chat_id, message)
+                time.sleep(0.05) # rate limiting
+            print(purple("New notice found and notified."))
+        else:
+            print(purple("INITIAL RUN"))
     else:
         print(purple("No new notice found"))
-
+    # initial run over, set it to false
+    initial_run = False
 # --------------
 # BOT Commands
 # --------------
