@@ -124,9 +124,8 @@ def check_and_notify():
 # --------------
 @bot.message_handler(commands=['start'])
 def start(message):
-    start_text = open("./command_responses/start.txt", "r")
-    bot.reply_to(message, start_text.read(), parse_mode='Markdown')
-    start_text.close() 
+    with open("./command_responses/start_text", "r") as f:
+        bot.reply_to(message, f.read(), parse_mode='Markdown') 
 
 @bot.message_handler(commands=['subscribe'])
 def subscribe(message):
@@ -145,16 +144,14 @@ def unsubscribe(message):
 
 @bot.message_handler(commands=['help'])
 def help(message):
-    help_text = open("./command_responses/help.txt", "r")
-    #help_text_fr = help_text.read()
-    bot.reply_to(message, help_text.read(), parse_mode='Markdown')
-    help_text.close()    
+    with open("./command_responses/help_text", "r") as f:
+        bot.reply_to(message, f.read(), parse_mode='Markdown')
+    
 
 @bot.message_handler(commands=['info'])
 def info(message):
-    info_text = open("./command_responses/info.txt", "r")
-    bot.reply_to(message, info_text.read(), parse_mode='Markdown')
-    info_text.close()    
+    with open("./command_responses/info_text", "r") as f:
+        bot.reply_to(message, f.read(), parse_mode='Markdown')    
 
 
 # Schedule the check_and_notify function to run every 10 minutes
