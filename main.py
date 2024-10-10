@@ -6,6 +6,13 @@ import telebot
 from threading import Thread
 import time
 import schedule
+import argparse
+
+# Providing the -i or --initial flag will trigger the exception of not sending notifications on the first run.
+parser = argparse.ArgumentParser(description="CHeck if this is the initial run")
+parser.add_argument('-i', '--initial', action='store_true', help=argparse.SUPPRESS)
+args = parser.parse_args()
+global initial_run = args.initial
 
 conn = sqlite3.connect('notices.db', check_same_thread=False) # Ensure multi-threading support
 cursor = conn.cursor()
@@ -15,7 +22,6 @@ bot = telebot.TeleBot(BOT_TOKEN)
 
 notice_url = "https://cit.ac.in/pages-notices-all"
 
-initial_run = True
 
 def purple(a):
     return "\33[35m"+a+"\33[0m"
@@ -98,8 +104,6 @@ def check_and_notify():
         First scrapes data from the page and then checks if it already exists in the database,
         if not inserts it and then prints the notice.
     """
-    global initial_run
-    
     scraped_data = scrape_data(notice_url)
     if not check_if_exists(scraped_data):
         insert_notice(scraped_data)
