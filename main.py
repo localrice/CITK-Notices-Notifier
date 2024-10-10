@@ -12,7 +12,8 @@ import argparse
 parser = argparse.ArgumentParser(description="CHeck if this is the initial run")
 parser.add_argument('-i', '--initial', action='store_true', help=argparse.SUPPRESS)
 args = parser.parse_args()
-global initial_run = args.initial
+initial_run = args.initial
+global initial_run
 
 conn = sqlite3.connect('notices.db', check_same_thread=False) # Ensure multi-threading support
 cursor = conn.cursor()
