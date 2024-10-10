@@ -43,7 +43,7 @@ else
 fi
 
 if [ -f "main.py" ]; then
-    python main.py
+    python main.py -i
     echo -e "${GREEN}main.py executed successfully.${RESET}"
 else
     echo -e "${RED}main.py not found!${RESET}"
