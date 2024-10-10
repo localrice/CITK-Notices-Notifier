@@ -124,7 +124,7 @@ def check_and_notify():
 # --------------
 @bot.message_handler(commands=['start'])
 def start(message):
-    with open("./command_responses/start_text", "r") as f:
+    with open("./command_responses/start.txt", "r") as f:
         bot.reply_to(message, f.read(), parse_mode='Markdown') 
 
 @bot.message_handler(commands=['subscribe'])
@@ -144,13 +144,13 @@ def unsubscribe(message):
 
 @bot.message_handler(commands=['help'])
 def help(message):
-    with open("./command_responses/help_text", "r") as f:
+    with open("./command_responses/help.txt", "r") as f:
         bot.reply_to(message, f.read(), parse_mode='Markdown')
     
 
 @bot.message_handler(commands=['info'])
 def info(message):
-    with open("./command_responses/info_text", "r") as f:
+    with open("./command_responses/info.txt", "r") as f:
         bot.reply_to(message, f.read(), parse_mode='Markdown')    
 
 
