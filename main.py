@@ -13,7 +13,6 @@ parser = argparse.ArgumentParser(description="CHeck if this is the initial run")
 parser.add_argument('-i', '--initial', action='store_true', help=argparse.SUPPRESS)
 args = parser.parse_args()
 initial_run = args.initial
-global initial_run
 
 conn = sqlite3.connect('notices.db', check_same_thread=False) # Ensure multi-threading support
 cursor = conn.cursor()
@@ -105,6 +104,7 @@ def check_and_notify():
         First scrapes data from the page and then checks if it already exists in the database,
         if not inserts it and then prints the notice.
     """
+    global initial_run
     scraped_data = scrape_data(notice_url)
     if not check_if_exists(scraped_data):
         insert_notice(scraped_data)
