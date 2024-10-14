@@ -26,7 +26,7 @@ fi
 pip3 install -r requirements.txt
 echo -e "${GREEN}Required packages have been downloaded.${RESET}"
 
-# oad environment variables from .env
+# load environment variables from .env
 if [ -f ".env" ]; then
     export $(grep -v '^#' .env | xargs)
     echo -e "${GREEN}.env variables have been loaded.${RESET}"
