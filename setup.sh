@@ -41,6 +41,7 @@ if [ -f "create_db.py" ]; then
     echo -e "${GREEN}Database initialized.${RESET}"
 else
     echo -e "${RED}create_db.py not found!${RESET}"
+    exit 1
 fi
 
 if [ -f "main.py" ]; then
@@ -48,4 +49,5 @@ if [ -f "main.py" ]; then
     echo -e "${GREEN}main.py executed successfully.${RESET}"
 else
     echo -e "${RED}main.py not found!${RESET}"
+    exit 1
 fi
