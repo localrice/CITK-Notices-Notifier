@@ -32,6 +32,7 @@ if [ -f ".env" ]; then
     echo -e "${GREEN}.env variables have been loaded.${RESET}"
 else
     echo -e "${RED}.env file not found!${RESET}"
+    exit 1 # if .env is not found, stop the script
 fi
 
 # initialize the database
